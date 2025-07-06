@@ -1,0 +1,31 @@
+<h1>🛒 장바구니</h1>
+
+{% if items %}
+  <ul>
+    {% for item in items %}
+      <li>
+        {{ item.product.name }} -
+        {{ item.quantity }}개 -
+        {{ item.subtotal }}원
+
+        <!-- 수량 조절 폼 -->
+        <form method="post" action="{% url 'update_cart' item.product.id %}" style="display:inline;">
+          {% csrf_token %}
+          <input type="number" name="quantity" value="{{ item.quantity }}" min="0">
+          <button type="submit">수정</button>
+        </form>
+
+        <!-- 삭제 버튼 -->
+        <form method="post" action="{% url 'remove_from_cart' item.product.id %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">삭제</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+  <p><strong>총합:</strong> {{ total_price }}원</p>
+{% else %}
+  <p>장바구니가 비었습니다.</p>
+{% endif %}
+
+<a href="/">← 상품 목록으로</a>

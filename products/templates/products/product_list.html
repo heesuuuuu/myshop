@@ -21,6 +21,7 @@
                 <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:100px; height:auto;">
               {% endif %}
               {{ product.name }} - {{ product.price }}원
+              <a href="{% url 'add_to_cart' product.id %}">🛒 장바구니에 담기</a>
             </a>
           </li>
         {% empty %}

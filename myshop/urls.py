@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('products.urls')),  # 여기에 추가!
+    path('cart/',include('cart.urls')), # 장바구니 
 ]
 
 if settings.DEBUG:
