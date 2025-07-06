@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product.name }}</title>
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width:300px; height:auto;">
+    {% endif %}
+    <p>가격: {{ product.price }}원</p>
+    <p>설명: {{ product.description }}</p>
+
+    <p><a href="/">← 상품 목록으로 돌아가기</a></p>
+</body>
+</html>
