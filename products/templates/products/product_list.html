@@ -1,32 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>상품 목록</title>
-</head>
-<body>
-    <p><a href="{% url 'product_create' %}">+ 새 상품 등록하기</a></p>
-    <form method="get" action="{% url 'product_list' %}">
-        <input type="text" name="q" placeholder="상품명을 검색하세요" value="{{ request.GET.q }}">
-        <button type="submit">검색</button>
-    </form>
-    {% if request.GET.q %}
-        <p><strong>"{{ request.GET.q }}"</strong>에 대한 검색 결과입니다.</p>
-    {% endif %}
-    <h1>상품 목록</h1>
-    <ul>
-        {% for product in products %}
-          <li>
-            <a href="{% url 'product_detail' product.pk %}">
-              {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:100px; height:auto;">
-              {% endif %}
-              {{ product.name }} - {{ product.price }}원
-              <a href="{% url 'add_to_cart' product.id %}">🛒 장바구니에 담기</a>
-            </a>
-          </li>
-        {% empty %}
-          <li>등록된 상품이 없습니다.</li>
-        {% endfor %}
-      </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}상품 목록{% endblock %}
+
+{% block content %}
+<p><a href="{% url 'product_create' %}">+ 새 상품 등록하기</a></p>
+<form method="get" action="{% url 'product_list' %}">
+    <input type="text" name="q" placeholder="상품명을 검색하세요" value="{{ request.GET.q }}">
+    <button type="submit">검색</button>
+</form>
+{% if request.GET.q %}
+    <p><strong>"{{ request.GET.q }}"</strong>에 대한 검색 결과입니다.</p>
+{% endif %}
+
+<h1>상품 목록</h1>
+<ul>
+    {% for product in products %}
+      <li>
+        <a href="{% url 'product_detail' product.pk %}">
+          {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:100px; height:auto;">
+          {% endif %}
+          {{ product.name }} - {{ product.price }}원
+          <a href="{% url 'add_to_cart' product.id %}">🛒 장바구니에 담기</a>
+        </a>
+      </li>
+    {% empty %}
+      <li>등록된 상품이 없습니다.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

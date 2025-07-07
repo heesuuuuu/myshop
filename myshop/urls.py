@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('products.urls')),  # 여기에 추가!
     path('cart/',include('cart.urls')), # 장바구니 
+    path('accounts/', include('accounts.urls')),
 ]
 
 if settings.DEBUG:
