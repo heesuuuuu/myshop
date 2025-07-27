@@ -6,12 +6,12 @@
       <li>
         {{ item.product.name }} -
         {{ item.quantity }}개 -
-        {{ item.subtotal }}원
+        {{ item.total_price }}원
 
         <!-- 수량 조절 폼 -->
-        <form method="post" action="{% url 'update_cart' item.product.id %}" style="display:inline;">
+        <form method="post" action="{% url 'cart_update' item.product.id %}" style="display:inline;">
           {% csrf_token %}
-          <input type="number" name="quantity" value="{{ item.quantity }}" min="0">
+          <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
           <button type="submit">수정</button>
         </form>
 
