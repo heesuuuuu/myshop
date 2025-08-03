@@ -1,19 +1,28 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product
+from .models import Product, Category
 from .forms import ProductForm
 from django.shortcuts import redirect
 from django.db.models import Q
 
 def product_list(request):
+    category_id = request.GET.get('category')
     query = request.GET.get('q')
-    if query:
-        products = Product.objects.filter(
-            Q(name__icontains=query) | Q(description__icontains=query)
-        )
-    else:
-        products = Product.objects.all()
 
-    return render(request, 'products/product_list.html', {'products': products})
+    products = Product.objects.all()
+
+    if category_id:
+        products = products.filter(category_id=category_id)
+    
+    if query:
+        products = products.filter(name__icontains=query)
+
+    categories = Category.objects.all()
+
+    return render(request, 'products/product_list.html', {
+        'products': products,
+        'categories': categories,
+        'selected_category': category_id
+    })
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)

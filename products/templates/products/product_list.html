@@ -5,6 +5,14 @@
 {% block content %}
 <p><a href="{% url 'product_create' %}">+ 새 상품 등록하기</a></p>
 <form method="get" action="{% url 'product_list' %}">
+    <select name="category">
+    <option value="">모든 카테고리</option>
+    {% for category in categories %}
+      <option value="{{ category.id }}" {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+        {{ category.name }}
+      </option>
+    {% endfor %}
+  </select>
     <input type="text" name="q" placeholder="상품명을 검색하세요" value="{{ request.GET.q }}">
     <button type="submit">검색</button>
 </form>
