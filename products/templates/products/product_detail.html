@@ -11,6 +11,27 @@
     <p>가격: {{ product.price }}원</p>
     <p>설명: {{ product.description }}</p>
 
+    <h2>리뷰</h2>
+{% for review in reviews %}
+    <p><strong>{{ review.user.username }}</strong> ({{ review.rating }}점)</p>
+    <p>{{ review.comment }}</p>
+    <hr>
+{% empty %}
+    <p>아직 리뷰가 없습니다.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+<h3>리뷰 작성하기</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">리뷰 등록</button>
+</form>
+{% else %}
+<p>로그인 후 리뷰를 작성할 수 있습니다.</p>
+{% endif %}
+
+
     <p><a href="/">← 상품 목록으로 돌아가기</a></p>
 </body>
 </html>
